@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Azisaba Commander Panel
 
-## Getting Started
+A web application for Docker Commander which provides running operation and console.
 
-First, run the development server:
+## Develop
 
-```bash
-npm run dev
-# or
-yarn dev
+### Git branch
+
+This repository adopts git-flow.
+
+#### Template
+
+```
+<type>/<subject>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Type
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **feature**: A new feature branch
+- **release**: A pre-release branch including a batch of feature branches
+- **hotfix**: Fix a high-priority bug. checkout master
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Git commit
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+#### Template
 
-## Learn More
+```
+<type>: <subject>
+```
 
-To learn more about Next.js, take a look at the following resources:
+#### Type
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **feat**: A new feature
+- **change**: Change a feature or remove
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing or correcting existing tests
+- **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Apache 2.0
