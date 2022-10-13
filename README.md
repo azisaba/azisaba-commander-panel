@@ -2,6 +2,19 @@
 
 A web application for Docker Commander which provides running operation and console.
 
+## Installation
+
+Product mode
+```shell
+next build
+next start
+```
+
+Development mode
+```shell
+next dev
+```
+
 ## Develop
 
 ### Git branch
