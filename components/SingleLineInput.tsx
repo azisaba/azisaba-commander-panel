@@ -6,6 +6,7 @@ type InputProps = {
     value: string
     onChange: (value: string) => void
     blind?: boolean
+    message?: React.ReactNode
 }
 
 export class SingleLineInput extends React.Component<InputProps, any> {
@@ -24,6 +25,12 @@ export class SingleLineInput extends React.Component<InputProps, any> {
         return (
             <div className={styles.single_line_input}>
                 <label htmlFor={`${this.props.type}_input_field`} className={styles.input_label}>{this.props.type}</label>
+                {this.props.message &&
+                    <div className={styles.status_message}>
+                        {this.props.message}
+                    </div>
+                }
+
                 <input type={this.props.blind ? "password" : "text"} name={`${this.props.type}_input_field`}
                        id={`${this.props.type}_input_field`} className={styles.input_field} ref={this.props.value}
                        onChange={this.handlerInputChange}/>

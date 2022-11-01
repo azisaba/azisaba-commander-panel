@@ -5,7 +5,13 @@
   width: 80%;
 
   .input_label {
-    display: block;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .status_message {
+    display: inline-block;
+    float: right;
     font-size: 14px;
   }
 
