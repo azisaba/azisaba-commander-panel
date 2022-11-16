@@ -1,9 +1,7 @@
 import React from "react"
 import styles from "../styles/Registration.module.scss"
-import {SingleLineInput} from "./SingleLineInput"
-import {ClickableButton} from "./ClickableButton"
-import {AccessibleButton} from "./AccessibleButton"
 import {isAlphabetNumber, isAlphabetNumberSymbol} from "../utils/CommonRegex";
+import {Box, Button, TextField, Stack, Alert} from "@mui/material";
 
 type RegistrationForm = {
     username: string
@@ -13,6 +11,7 @@ type RegistrationForm = {
     warningUsername: boolean
     warningPassword: boolean
     warningConfirmPassword: boolean
+    alert: boolean
 }
 
 export class Registration extends React.Component<any, RegistrationForm> {
@@ -27,7 +26,8 @@ export class Registration extends React.Component<any, RegistrationForm> {
             confirmPassword: "",
             warningUsername: false,
             warningPassword: false,
-            warningConfirmPassword: false
+            warningConfirmPassword: false,
+            alert: false
         }
 
         //  bind handlers
@@ -38,31 +38,46 @@ export class Registration extends React.Component<any, RegistrationForm> {
     }
 
 
-    onChangeUsername(value: string) {
+    onChangeUsername(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
         this.setState({
-            username: value,
-            warningUsername: !isAlphabetNumber(value, 4, 32)
+            username: event.target.value,
+            warningUsername: !isAlphabetNumber(event.target.value, 4, 32)
         })
     }
 
-    onChangePassword(value: string) {
+    onChangePassword(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
         this.setState({
-            password: value,
-            warningPassword: !isAlphabetNumberSymbol(value, 8, 100)
+            password: event.target.value,
+            warningPassword: !isAlphabetNumberSymbol(event.target.value, 8, 100)
+        })
+
+        //  confirm
+        this.setState({
+            warningConfirmPassword: !isAlphabetNumberSymbol(event.target.value, 8, 100)
+                || (this.state.confirmPassword != event.target.value)
         })
     }
 
-    onChangeConfirmPassword(value: string) {
+    onChangeConfirmPassword(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
         this.setState({
-            confirmPassword: value,
-            warningConfirmPassword: this.state.password != value
+            confirmPassword: event.target.value,
+            warningConfirmPassword: !isAlphabetNumberSymbol(event.target.value, 8, 100)
+                || (this.state.password != event.target.value)
         })
     }
 
     handlerSubmit() {
         //  Validation check
-        if(!isAlphabetNumber(this.state.username, 4, 32)) {
-
+        if (
+            !isAlphabetNumber(this.state.username, 4, 32)
+            || !isAlphabetNumber(this.state.password, 8, 100)
+            || !isAlphabetNumber(this.state.confirmPassword, 8, 100)
+            || this.state.password != this.state.confirmPassword
+        ) {
+            this.setState({
+                alert: true
+            })
+            return
         }
         //  Post with AJax
 
@@ -72,39 +87,91 @@ export class Registration extends React.Component<any, RegistrationForm> {
 
     render() {
         return (
-            <form className={styles.form_container}>
-                <h3>
+            <Box
+                component="form"
+                sx={{
+                    width: '470px',
+                    // height: '380px',
+                    border: 1,
+                    borderColor: '#D8D8D8',
+                    borderRadius: '10px',
+                    mx: 'auto',
+                    my: '10%',
+                    // py: '40px'
+                }}
+            >
+                <h3 className={styles.header}>
                     Registration
                 </h3>
 
-                <div className={styles.input_container}>
-                    <SingleLineInput
-                        type={"Username"}
-                        value={this.state.username}
-                        onChange={this.onChangeUsername}
-                        message={this.state.warningUsername && <span style={{color: "red"}}>❌Invalid username</span>}
-                    />
-                    <SingleLineInput
-                        type={"Password"}
-                        value={this.state.password}
-                        onChange={this.onChangePassword}
-                        blind={true}
-                        message={this.state.warningPassword && <span style={{color: "red"}}>❌Invalid password</span>}
-                    />
-                    <SingleLineInput
-                        type={"Confirm Password"}
-                        value={this.state.confirmPassword}
-                        onChange={this.onChangeConfirmPassword}
-                        blind={true}
-                        message={this.state.warningConfirmPassword && <span style={{color: "red"}}>❌No match</span>}
-                    />
-                </div>
+                <Stack
+                    sx={{
+                        width: '80%',
+                        mx: 'auto'
+                    }}
+                >
+                    {this.state.alert &&
+                        <Alert
+                            severity={"error"}
+                            sx={{
+                                mb: '20px'
+                            }}
+                        >
+                            You need to fill out all input fields.<br/>
+                            You can use alphanumeric and characters.
+                            Username must be more longer than 4. Password must be more than 8.<br/>
+                            Also, Password and Confirm Password must be correctly matched.
+                        </Alert>
+                    }
+                </Stack>
 
-                <div className={styles.button_container}>
-                    <AccessibleButton href={"/"} value={"Cancel"} />
-                    <ClickableButton onClick={this.handlerSubmit} value={"Register"} color={"#92B4F2"} />
+                <div className={styles.input_container}>
+                    <TextField
+                        id={"username_input"}
+                        label={"Username"}
+                        defaultValue={this.state.username}
+                        variant={"standard"}
+                        onChange={this.onChangeUsername}
+                        fullWidth
+                        error={this.state.warningUsername}
+                        sx={{
+                            mb: '20px'
+                        }}
+                    />
+                    <TextField
+                        id={"password_input"}
+                        label={"Password"}
+                        defaultValue={this.state.username}
+                        variant={"standard"}
+                        onChange={this.onChangePassword}
+                        fullWidth
+                        error={this.state.warningPassword}
+                        sx={{
+                            mb: '20px'
+                        }}
+                    />
+                    <TextField
+                        id={"confirm_password_input"}
+                        label={"Confirm Password"}
+                        defaultValue={this.state.username}
+                        variant={"standard"}
+                        onChange={this.onChangeConfirmPassword}
+                        fullWidth
+                        error={this.state.warningConfirmPassword}
+                        sx={{
+                            mb: '20px'
+                        }}
+                    />
                 </div>
-            </form>
+                <div className={styles.button_container}>
+                    <Button href={"/"} variant={"outlined"}>
+                        Cancel
+                    </Button>
+                    <Button onClick={this.handlerSubmit} variant={"contained"}>
+                        Register
+                    </Button>
+                </div>
+            </Box>
         )
     }
 }

@@ -1,30 +1,21 @@
-.form_container
+.header
 {
-  width: 470px;
-  height: 380px;
-  border: solid 1px #D8D8D8;
-  border-radius: 10px;
-  margin: 10% auto;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  h3
-  {
-    font-size: 24px;
-    text-align: center;
-    margin-top: 30px;
-  }
-
-  .input_container
-  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .button_container
-  {
-    display: flex;
-    justify-content: space-between;
-    padding: 30px 100px;
-  }
+.input_container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.button_container
+{
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 100px;
 }
