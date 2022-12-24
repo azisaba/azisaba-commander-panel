@@ -2,6 +2,7 @@ import React, {useRef, useState} from "react"
 import styles from "../styles/Registration.module.scss"
 import {isAlphabetNumber, isAlphabetNumberSymbol} from "../utils/CommonRegex";
 import {Box, Button, TextField, Stack, Alert, TextFieldProps} from "@mui/material";
+import Link from "next/link";
 
 type SignInState = {
     username: string
@@ -12,7 +13,7 @@ type SignInState = {
     alert: boolean
 }
 
-export function SignIn(props: { csrfToken: string }) {
+export function SignIn(props: { csrfToken: string, error: boolean }) {
     //  state
     const [formState, setFormState] = useState<SignInState>({
         username: "",
@@ -60,97 +61,106 @@ export function SignIn(props: { csrfToken: string }) {
 
 
     return (
-        <Box
-            sx={{
-                width: '470px',
-                // height: '380px',
-                border: 1,
-                borderColor: '#D8D8D8',
-                borderRadius: '10px',
-                mx: 'auto',
-                my: '10%',
-                // py: '40px'
-            }}
-        >
-            <h3 className={styles.header}>
-                Sign in
-            </h3>
-
-            <Stack
+        <>
+            <Box
                 sx={{
-                    width: '80%',
-                    mx: 'auto'
+                    width: '470px',
+                    // height: '380px',
+                    border: 1,
+                    borderColor: '#D8D8D8',
+                    borderRadius: '10px',
+                    mx: 'auto',
+                    mt: '10%',
+                    // py: '40px'
                 }}
             >
-                {formState.alert &&
-                    <Alert
-                        severity={"error"}
-                        sx={{
-                            mb: '20px'
-                        }}
-                    >
-                        You need to fill out all input fields.<br/>
-                        You can use alphanumeric and characters.
-                        Username must be more longer than 4. Password must be more than 8.
-                    </Alert>
-                }
-            </Stack>
+                <h3 className={styles.header}>
+                    Sign in
+                </h3>
 
-            <form
-                method={"post"}
-                action="/api/auth/callback/credentials"
-                onSubmit={handlerSubmit}
-            >
-                <div className={styles.input_container}>
-                    <input name="csrfToken" type="hidden" defaultValue={props.csrfToken}/>
-                    <TextField
-                        id={"username"}
-                        name={"username"}
-                        label={"Username"}
-                        variant={"standard"}
-                        inputRef={usernameRef}
-                        onChange={onChangeUsername}
-                        fullWidth
-                        error={formState.warningUsername}
-                        sx={{
-                            mb: '20px'
-                        }}
-                    />
-                    <TextField
-                        id={"password"}
-                        name={"password"}
-                        label={"Password"}
-                        type={"password"}
-                        variant={"standard"}
-                        inputRef={passwordRef}
-                        onChange={onChangePassword}
-                        fullWidth
-                        error={formState.warningPassword}
-                        sx={{
-                            mb: '20px'
-                        }}
-                    />
-                    <TextField
-                        id={"two_fa_token"}
-                        name={"two_fa_token"}
-                        label={"2FA token (optional)"}
-                        variant={"standard"}
-                        inputRef={twoFARef}
-                        fullWidth
-                        sx={{
-                            mb: '20px'
-                        }}
-                    />
-                </div>
-                <div className={styles.button_container}>
-                    <Button href={"/"} variant={"outlined"}>
-                        Cancel
-                    </Button>
-                    <Button type={"submit"} variant={"contained"}>
-                        Sign In
-                    </Button>
-                </div>
-            </form>
-        </Box>
+                <Stack
+                    sx={{
+                        width: '80%',
+                        mx: 'auto'
+                    }}
+                >
+                    {formState.alert &&
+                        <Alert
+                            severity={"error"}
+                            sx={{
+                                mb: '20px'
+                            }}
+                        >
+                            You need to fill out all input fields.<br/>
+                            You can use alphanumeric and characters.
+                            Username must be more longer than 4. Password must be more than 8.
+                        </Alert>
+                    }
+                </Stack>
+
+                <form
+                    method={"post"}
+                    action="/api/auth/callback/credentials"
+                    onSubmit={handlerSubmit}
+                >
+                    <div className={styles.input_container}>
+                        <input name="csrfToken" type="hidden" defaultValue={props.csrfToken}/>
+                        <TextField
+                            id={"username"}
+                            name={"username"}
+                            label={"Username"}
+                            variant={"standard"}
+                            inputRef={usernameRef}
+                            onChange={onChangeUsername}
+                            fullWidth
+                            required
+                            error={formState.warningUsername}
+                            sx={{
+                                mb: '20px'
+                            }}
+                        />
+                        <TextField
+                            id={"password"}
+                            name={"password"}
+                            label={"Password"}
+                            type={"password"}
+                            variant={"standard"}
+                            inputRef={passwordRef}
+                            onChange={onChangePassword}
+                            fullWidth
+                            required
+                            error={formState.warningPassword}
+                            sx={{
+                                mb: '20px'
+                            }}
+                        />
+                        <TextField
+                            id={"two_fa_token"}
+                            name={"two_fa_token"}
+                            label={"2FA token (optional)"}
+                            variant={"standard"}
+                            inputRef={twoFARef}
+                            fullWidth
+                            sx={{
+                                mb: '20px'
+                            }}
+                        />
+                    </div>
+                    <div className={styles.button_container}>
+                        <Button href={"/"} variant={"outlined"}>
+                            Cancel
+                        </Button>
+                        <Button type={"submit"} variant={"contained"}>
+                            Sign In
+                        </Button>
+                    </div>
+                </form>
+            </Box>
+
+            <div className={styles.go_to_register}>
+                 {/*eslint-disable-next-line react/no-unescaped-entities */}
+                <p>If you don't have account, please create <Link href={"/auth/register"} style={{color: "blue"}}>here</Link>.</p>
+            </div>
+        </>
     )
 }
