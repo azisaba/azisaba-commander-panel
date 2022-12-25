@@ -22,13 +22,8 @@ export function Registration() {
     //  redirect if user already authorized or waiting to finish registration
     const {data: session} = useSession()
     const router = useRouter()
-    useEffect(() => {
-        //  already authorized
-        if (session) {
-            router.replace('/').then(() => {
-            })
-        }
 
+    useEffect(() => {
         //  finish registration
         if (router.query.state) {
             (async () => {
@@ -41,6 +36,14 @@ export function Registration() {
                 await router.replace('/auth/signin')
             })()
 
+        }
+    }, [router])
+
+    useEffect(() => {
+        //  already authorized
+        if (session) {
+            router.replace('/').then(() => {
+            })
         }
 
     }, [router, session])
@@ -135,7 +138,7 @@ export function Registration() {
         }
 
         //  redirect
-        await router.replace('/auth/signin')
+        router.replace('/auth/signin').then()
     }
 
     return (
