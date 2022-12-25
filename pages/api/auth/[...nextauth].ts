@@ -30,9 +30,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                         return null
                     }
 
-                    console.log("x-forwarded " ,req.headers['x-forwarded-for'])
-                    console.log("CF ", req.headers['cf-connecting-ip'])
-
                     //  login request
                     const loginRes = await fetchData(
                         "login",
