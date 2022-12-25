@@ -1,91 +1,99 @@
 import NextAuth, {User} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {fetchData} from "../../../utils/FetchUnit";
+import {NextApiRequest, NextApiResponse} from "next";
+import requestIp from "request-ip"
 
-export default NextAuth({
-    providers: [
-        CredentialsProvider({
-            name: "Credentials",
-            credentials: {
-                username: {
-                    label: "Username",
-                    type: "text"
-                },
-                password: {
-                    label: "Password",
-                    type: "password"
-                },
-                two_fa_token: {
-                    label: "2FA token",
-                    type: "text"
-                }
-            },
-            authorize: async (credentials):  Promise<User | null> => {
-                if (!credentials){
-                    return null
-                }
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
-                //  login request
-                const loginRes = await fetchData(
-                    "login",
-                    "POST",
-                    {
-                        username: credentials.username,
-                        password: credentials.password,
-                        two_fa_token: credentials.two_fa_token
+
+    return await NextAuth(req, res, {
+        providers: [
+            CredentialsProvider({
+                name: "Credentials",
+                credentials: {
+                    username: {
+                        label: "Username",
+                        type: "text"
+                    },
+                    password: {
+                        label: "Password",
+                        type: "password"
+                    },
+                    two_fa_token: {
+                        label: "2FA token",
+                        type: "text"
                     }
-                )
-                if (!loginRes || loginRes.response_status != 200) {
-                    return null
+                },
+                authorize: async (credentials): Promise<User | null> => {
+                    if (!credentials) {
+                        return null
+                    }
+
+                    //  login request
+                    const loginRes = await fetchData(
+                        "login",
+                        "POST",
+                        {
+                            username: credentials.username,
+                            password: credentials.password,
+                            two_fa_token: credentials.two_fa_token,
+                        },
+                        undefined,
+                        requestIp.getClientIp(req) ?? undefined
+                    )
+                    if (!loginRes || loginRes.response_status != 200) {
+                        return null
+                    }
+
+                    //  get own profile
+                    const profile = await fetchData(
+                        "me",
+                        "GET",
+                        {},
+                        loginRes.state,
+                        requestIp.getClientIp(req) ?? undefined
+                    )
+                    if (!profile || profile.response_status != 200) {
+                        return null
+                    }
+
+                    return {
+                        id: profile.id,
+                        name: profile.username,
+                        accessToken: loginRes.state
+                    }
+                }
+            })
+        ],
+        callbacks: {
+            //  @ts-ignore
+            async session({session, token}) {
+                session.user.id = token.id
+                session.user.name = token.name
+                session.accessToken = token.accessToken
+
+                return session
+            },
+            //  @ts-ignore
+            async jwt({token, user}) {
+                if (user) {
+                    token.id = user.id
+                    token.name = user.name
+                    token.accessToken = user.accessToken
                 }
 
-                //  get own profile
-                const profile = await fetchData(
-                    "me",
-                    "GET",
-                    {},
-                    loginRes.state
-                )
-                if (!profile || profile.response_status != 200)
-                {
-                    return null
-                }
-
-                return {
-                    id: profile.id,
-                    name: profile.username,
-                    accessToken: loginRes.state
-                }
+                return token
             }
-        })
-    ],
-    callbacks: {
-        //  @ts-ignore
-        async session({session, token}) {
-            session.user.id = token.id
-            session.user.name = token.name
-            session.accessToken = token.accessToken
-
-            return session
         },
-        //  @ts-ignore
-        async jwt({token, user}) {
-            if(user) {
-                token.id = user.id
-                token.name = user.name
-                token.accessToken = user.accessToken
-            }
-
-            return token
+        session: {
+            strategy: "jwt",
+            maxAge: 30 * 24 * 60 * 60,
+            updateAge: 24 * 60 * 60,
+        },
+        secret: process.env.SECRET,
+        pages: {
+            signIn: "/auth/signin"
         }
-    },
-    session: {
-        strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60,
-        updateAge: 24 * 60 * 60,
-    },
-    secret: process.env.SECRET,
-    pages: {
-        signIn: "/auth/signin"
-    }
-})
+    })
+}

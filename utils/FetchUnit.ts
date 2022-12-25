@@ -1,12 +1,11 @@
 type FetchMethod = "GET" | "POST" | "PATCH" | "DELETE"
 
-export const fetchData = async (url: string, method: FetchMethod, data?: object, token?: string): Promise<any | undefined> => {
+export const fetchData = async (url: string, method: FetchMethod, data?: object, token?: string, clientSideIP?: string): Promise<any | undefined> => {
     try {
         let baseRequest: RequestInit = {
             method: method,
             mode: "cors",
             cache: "no-cache",
-            credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -16,6 +15,11 @@ export const fetchData = async (url: string, method: FetchMethod, data?: object,
         if(token) {
             // @ts-ignore
             baseRequest.headers['x-azisabacommander-session'] = token
+        }
+
+        if (clientSideIP) {
+            // @ts-ignore
+            baseRequest.headers['client-side-ip'] = clientSideIP
         }
 
         if (method != "GET")
