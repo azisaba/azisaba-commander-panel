@@ -30,6 +30,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                         return null
                     }
 
+                    console.log("x-forwarded " ,req.headers['x-forwarded-for'])
+                    console.log("CF ", req.headers['cf-connecting-ip'])
+
                     //  login request
                     const loginRes = await fetchData(
                         "login",
@@ -45,6 +48,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                     if (!loginRes || loginRes.response_status != 200) {
                         return null
                     }
+
 
                     //  get own profile
                     const profile = await fetchData(
