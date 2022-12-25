@@ -134,9 +134,8 @@ export function Registration() {
             return
         }
 
-        console.log("success")
-
-        //  redirect with param
+        //  redirect
+        await router.replace('/auth/signin')
     }
 
     return (
