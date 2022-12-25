@@ -19,7 +19,7 @@ export const fetchData = async (url: string, method: FetchMethod, data?: object,
 
         if (clientSideIP) {
             // @ts-ignore
-            // baseRequest.headers['client-side-ip'] = `${clientSideIP}`
+            baseRequest.headers['client-side-ip'] = `::ffff:${clientSideIP}`
         }
 
         if (method != "GET")
