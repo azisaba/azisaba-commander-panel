@@ -31,16 +31,16 @@ export function Registration() {
 
         //  finish registration
         if (router.query.state) {
-            //  post
-            fetchData(
-                'register/'+router.query.state,
-                'GET'
-            ).then((res) => {
-                console.log(res)
+            (async () => {
+                //  post
+                await fetchData(
+                    'register/'+router.query.state,
+                    'GET'
+                )
+                //  redirect
+                await router.replace('/auth/signin')
+            })()
 
-                router.replace('/auth/signin').then(() => {
-                })
-            })
         }
 
     }, [router, session])
