@@ -30,7 +30,7 @@ export function AdminSidebar() {
                         py: 0,
                         minHeight: 32
                     }}
-                    href={"/admin/user"}
+                    href={"/admin/account"}
                 >
                     <ListItemIcon
                         sx={{
