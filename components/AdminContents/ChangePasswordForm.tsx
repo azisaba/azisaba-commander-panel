@@ -187,6 +187,17 @@ export function ChangePasswordForm() {
                                 mb: '20px'
                             }}
                         />
+                        <TextField
+                            id={"two_fa"}
+                            name={"two_fa"}
+                            label={"2FA Token (Optional)"}
+                            variant={"standard"}
+                            inputRef={twoFATokenRef}
+                            fullWidth
+                            sx={{
+                                mb: '20px'
+                            }}
+                        />
                     </div>
                     <Button
                         type={"submit"}
