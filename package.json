@@ -17,6 +17,7 @@
     "next-auth": "4.18.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-qr-code": "^2.0.11",
     "request-ip": "^3.3.0",
     "sass": "^1.57.1",
     "scss": "^0.2.4"

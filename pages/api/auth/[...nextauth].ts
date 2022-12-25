@@ -35,9 +35,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                         "login",
                         "POST",
                         {
-                            username: credentials.username,
-                            password: credentials.password,
-                            two_fa_token: credentials.two_fa_token,
+                            'username': credentials.username,
+                            'password': credentials.password,
+                            '2fa_token': credentials.two_fa_token,
                         },
                         undefined,
                         requestIp.getClientIp(req) ?? undefined

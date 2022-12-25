@@ -1,4 +1,4 @@
-import styles from "../../styles/ChangePasswordForm.module.scss"
+import styles from "../../styles/DashboardForm.module.scss"
 import {useSession} from "next-auth/react";
 import React, {useRef, useState} from "react";
 import {Alert, Button, Stack, TextField, TextFieldProps} from "@mui/material";
@@ -90,8 +90,6 @@ export function ChangePasswordForm() {
             },
             session?.accessToken
         )
-
-        console.log(session?.accessToken)
 
         //  server is down
         if (!res) {

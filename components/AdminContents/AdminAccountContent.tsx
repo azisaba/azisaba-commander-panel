@@ -1,22 +1,12 @@
 import {ChangePasswordForm} from "./ChangePasswordForm";
-import {fetchData} from "../../utils/FetchUnit";
-import {useSession} from "next-auth/react";
+import {TwoFASection} from "./TwoFAForm";
 
 export function AdminAccountContent() {
-
-    const {data: session} = useSession()
-    fetchData(
-        "me",
-        "GET",
-        {},
-        session?.accessToken
-    ).then(res => {
-        console.log(res)
-    })
 
     return (
         <>
             <ChangePasswordForm />
+            <TwoFASection />
         </>
     )
 }
