@@ -1,8 +1,10 @@
-import React, {useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import styles from "../styles/Registration.module.scss"
 import {isAlphabetNumber, isAlphabetNumberSymbol} from "../utils/CommonRegex";
 import {Box, Button, TextField, Stack, Alert, TextFieldProps} from "@mui/material";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 type SignInState = {
     username: string
@@ -14,6 +16,17 @@ type SignInState = {
 }
 
 export function SignIn(props: { csrfToken: string, error: boolean }) {
+    const {data: session} = useSession()
+    const router = useRouter()
+    useEffect(() => {
+        //  already authorized
+        if (session) {
+            router.replace('/').then(() => {
+            })
+        }
+
+    }, [router, session])
+
     //  state
     const [formState, setFormState] = useState<SignInState>({
         username: "",
