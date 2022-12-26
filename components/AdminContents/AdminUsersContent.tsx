@@ -1,9 +1,10 @@
+import {Users} from "./Users";
 
 export function AdminUsersContent() {
 
     return (
         <>
-            users
+            <Users />
         </>
     )
 }

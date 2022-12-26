@@ -1,10 +1,10 @@
 import type {NextPage} from 'next'
-import {Header} from "../../components/Header";
-import {AdminDashboard} from "../../components/AdminDashboard";
+import {Header} from "../../../components/Header";
+import {AdminDashboard} from "../../../components/AdminDashboard";
 import {useSession} from "next-auth/react";
-import {AdminUsersContent} from "../../components/AdminContents/AdminUsersContent";
+import {AdminUsersContent} from "../../../components/AdminContents/AdminUsersContent";
 
-const AdminPage: NextPage = () => {
+const UsersPage: NextPage = () => {
     const {data: session, status} = useSession({required: true})
     if (status == 'loading') {
         return (
@@ -39,4 +39,4 @@ const AdminPage: NextPage = () => {
     )
 }
 
-export default AdminPage
+export default UsersPage
