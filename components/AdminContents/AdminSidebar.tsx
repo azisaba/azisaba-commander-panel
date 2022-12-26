@@ -37,53 +37,57 @@ export function AdminSidebar() {
                             mr: "-20px"
                         }}
                     >
-                        <AccountCircleIcon />
+                        <AccountCircleIcon/>
                     </ListItemIcon>
                     <ListItemText
                         primary={"Account"}
-                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+                        primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                     />
                 </ListItemButton>
-                {/*Users*/}
-                <ListItemButton
-                    sx={{
-                        py: 0,
-                        minHeight: 32
-                    }}
-                    href={"/admin/users"}
-                >
-                    <ListItemIcon
-                        sx={{
-                            mr: "-20px"
-                        }}
-                    >
-                        <PeopleIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={"Manage Users"}
-                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                    />
-                </ListItemButton>
-                {/*Permissions*/}
-                <ListItemButton
-                    sx={{
-                        py: 0,
-                        minHeight: 32
-                    }}
-                    href={"/admin/permissions"}
-                >
-                    <ListItemIcon
-                        sx={{
-                            mr: "-20px"
-                        }}
-                    >
-                        <AssignmentIndIcon/>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={"Permissions"}
-                        primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-                    />
-                </ListItemButton>
+                {session.user.group == "admin" &&
+                    <>
+                        {/*Users*/}
+                        <ListItemButton
+                            sx={{
+                                py: 0,
+                                minHeight: 32
+                            }}
+                            href={"/admin/users"}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    mr: "-20px"
+                                }}
+                            >
+                                <PeopleIcon/>
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Manage Users"}
+                                primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
+                            />
+                        </ListItemButton>
+                        {/*Permissions*/}
+                        <ListItemButton
+                            sx={{
+                                py: 0,
+                                minHeight: 32
+                            }}
+                            href={"/admin/permissions"}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    mr: "-20px"
+                                }}
+                            >
+                                <AssignmentIndIcon/>
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Permissions"}
+                                primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
+                            />
+                        </ListItemButton>
+                    </>
+                }
             </Box>
 
         </>

@@ -62,6 +62,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                     return {
                         id: profile.id,
                         name: profile.username,
+                        group: profile.group,
                         accessToken: loginRes.state
                     }
                 }
@@ -72,6 +73,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             async session({session, token}) {
                 session.user.id = token.id
                 session.user.name = token.name
+                session.user.group = token.group
                 session.accessToken = token.accessToken
 
                 return session
@@ -81,6 +83,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 if (user) {
                     token.id = user.id
                     token.name = user.name
+                    token.group = user.group
                     token.accessToken = user.accessToken
                 }
 
@@ -89,7 +92,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         },
         session: {
             strategy: "jwt",
-            maxAge: 30 * 24 * 60 * 60,
+            maxAge: 7 * 24 * 60 * 60,
             updateAge: 24 * 60 * 60,
         },
         secret: process.env.SECRET,
