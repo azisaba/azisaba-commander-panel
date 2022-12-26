@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import {Header} from "../../components/Header";
-import {AdminDashboard} from "../../components/AdminDashboard";
+import {AdminDashboard} from "../../components/AdminContents/AdminDashboard";
 import {useSession} from "next-auth/react";
 import {AdminAccountContent} from "../../components/AdminContents/AdminAccountContent";
 

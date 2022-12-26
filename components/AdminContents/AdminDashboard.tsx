@@ -1,5 +1,5 @@
-import styles from "../styles/AdminDashboard.module.scss"
-import {AdminSidebar} from "./AdminContents/AdminSidebar";
+import styles from "../../styles/AdminDashboard.module.scss"
+import {AdminSidebar} from "./AdminSidebar";
 import {ReactNode} from "react";
 
 export function AdminDashboard(props: {children: ReactNode}) {
