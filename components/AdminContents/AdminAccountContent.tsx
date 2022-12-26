@@ -1,5 +1,5 @@
 import {ChangePasswordForm} from "./ChangePasswordForm";
-import {TwoFASection} from "./TwoFAForm";
+import {TwoFASection} from "./TwoFASection";
 
 export function AdminAccountContent() {
 

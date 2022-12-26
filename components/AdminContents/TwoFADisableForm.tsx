@@ -52,6 +52,7 @@ export function TwoFADisableForm() {
                 }
             </Stack>
             <form onSubmit={handlerSubmit}>
+                <p>Disable 2FA</p>
                 <div className={styles.inputs}>
                     <TextField
                         id={"two_fa"}
@@ -70,7 +71,7 @@ export function TwoFADisableForm() {
                     variant={"contained"}
                     className={styles.submit}
                 >
-                    Change
+                    Disable
                 </Button>
             </form>
         </>

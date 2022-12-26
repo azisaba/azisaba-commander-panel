@@ -5,10 +5,18 @@ import {fetchData} from "../../utils/FetchUnit";
 import {TwoFADisableForm} from "./TwoFADisableForm";
 import {TwoFAEnableForm} from "./TwoFAEnableForm";
 
+type TwoFASectionState = {
+    loading: boolean
+    enabled: boolean
+}
+
 export function TwoFASection() {
     const {data: session} = useSession()
     //  state
-    const [state, setState] = useState<boolean | undefined>(undefined)
+    const [state, setState] = useState<TwoFASectionState>({
+        loading: true,
+        enabled: false
+    })
 
     //  fetch
     useEffect(() => {
@@ -18,19 +26,19 @@ export function TwoFASection() {
             {},
             session?.accessToken
         ).then(res => {
-            if(!res || res.response_status != 200 || res['2fa']) {
+            if(!res || res.response_status != 200) {
                 return
             }
 
-            setState(res['2fa'] as boolean)
+            setState(() => ({
+                loading: false,
+                enabled: res['2fa'] as boolean
+            }))
         })
     }, [session])
 
     let content;
-    if (!state) {
-        content = "Loading..."
-    }
-    if(state) {
+    if(state.enabled) {
         content = <TwoFADisableForm />
     }
     else {
@@ -44,7 +52,10 @@ export function TwoFASection() {
                     <h1>2FA settings</h1>
                     <hr/>
                 </div>
-                {content}
+                {state.loading ?
+                    "Loading...":
+                    content
+                }
             </div>
         </>
     )
