@@ -128,7 +128,7 @@ export function Registration() {
             }))
             return
         }
-        if (res != 200) {
+        if (res.response_status != 200) {
             //  show error message
             setFormState((prevState) => ({
                 ...prevState,
@@ -138,7 +138,7 @@ export function Registration() {
         }
 
         //  redirect
-        router.replace('/auth/signin').then()
+        router.replace("/auth/signin").then()
     }
 
     return (
