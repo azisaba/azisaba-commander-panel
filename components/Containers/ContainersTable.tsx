@@ -17,7 +17,14 @@ export function ContainersTable(props: ContainerTableProps) {
 
     return (
         <>
-            <Grid container spacing={5}>
+            <Grid
+                container
+                spacing={5}
+                sx={{
+                    mb: "20px",
+                    marginX: "auto"
+                }}
+            >
                 {
                     containers.map((value) => (
                         <Container key={value.id} container={value} />
