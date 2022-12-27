@@ -37,6 +37,7 @@ export function ContainersPanel() {
                 ...prevState,
                 error: "Failed to fetch containers"
             }))
+            return
         }
 
         setContainersState(() => ({

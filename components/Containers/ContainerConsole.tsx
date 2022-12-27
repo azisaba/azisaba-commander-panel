@@ -25,7 +25,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
     })
 
     const reload = useCallback(async () => {
-        if (!session || !props.container) return
+        if (!session || !props.container.docker_id || !props.container.id) return
 
         //  fetch
         const res = await fetchData(
@@ -40,16 +40,23 @@ export function ContainerConsole(props: ContainerConsoleProps) {
                 ...prevState,
                 error: "Failed to fetch logs"
             }))
+            return
         }
 
-        const {logs} = res
+        if(!res.logs) {
+            setConsoleState((prevState) => ({
+                ...prevState,
+                error: "Console is not updated yet."
+            }))
+            return
+        }
 
         setConsoleState((prevState) => ({
             ...prevState,
-            logs: logs,
+            logs: res.logs,
             error: undefined
         }))
-    }, [props.container, session])
+    }, [props.container.docker_id, props.container.id, session])
 
     useEffect(() => {
         reload().then()
@@ -59,6 +66,17 @@ export function ContainerConsole(props: ContainerConsoleProps) {
         if (!props.isDisplay || consoleState.stop) return
         reload().then()
     }, 10*1000)
+
+    let consoleElements: JSX.Element[] = []
+    if(consoleState.logs) {
+        consoleElements = consoleState.logs.split('\n').map((value, index) => {
+            return (
+                <div key={index}>
+                    {value}<br/>
+                </div>
+            )
+        })
+    }
 
     return (
         <>
@@ -106,13 +124,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
                         overflowY: "scroll"
                     }}
                 >
-                    {consoleState.logs.split('\n').map(value => {
-                        return (
-                            <>
-                                {value}<br/>
-                            </>
-                        )
-                    })}
+                    {consoleElements}
                 </Box>
             </div>
         </>
