@@ -3,6 +3,8 @@ import styles from "../styles/Header.module.scss"
 import Link from "next/link";
 import {Button} from "@mui/material";
 import {signOut, useSession} from "next-auth/react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGear} from "@fortawesome/free-solid-svg-icons";
 
 export function Header() {
     const {data: session} = useSession()
@@ -10,6 +12,12 @@ export function Header() {
     return (
         <header>
             <div className={styles.header}>
+                <Link
+                    href={"/admin"}
+                    className={styles.settings}
+                >
+                    <FontAwesomeIcon icon={faGear} />
+                </Link>
                 <Link href={"/"}>
                     <h1 className={styles.title}>
                         Azisaba Commander
