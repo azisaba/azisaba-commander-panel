@@ -55,7 +55,7 @@ export function TwoFADisableForm() {
                 <p>Disable 2FA</p>
                 <div className={styles.inputs}>
                     <TextField
-                        id={"two_fa"}
+                        id={"two_fa_disable"}
                         name={"two_fa"}
                         label={"2FA Token"}
                         variant={"standard"}
