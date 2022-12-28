@@ -34,13 +34,15 @@ export function UserPermissions(props: { user: User }) {
                 ...prevState,
                 error: "Sorry. Server is down now"
             }))
+            return
         }
 
-        if (res != 200) {
+        if (res.response_status != 200) {
             setState((prevState) => ({
                 ...prevState,
                 error: "Failed to fetch data. " + res.error
             }))
+            return
         }
 
         setState((prevState) => ({

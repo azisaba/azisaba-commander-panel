@@ -36,7 +36,7 @@ export function PermissionsPanel() {
             return
         }
 
-        if (res != 200) {
+        if (res.response_status != 200) {
             setState((prevState) => ({
                 ...prevState,
                 error: "Failed to fetch data. " + res.error
