@@ -50,8 +50,6 @@ export function PermissionsPanel() {
             permissions: res.permissions
         }))
 
-        console.log(res)
-
     }, [session])
 
     useEffect(() => {
