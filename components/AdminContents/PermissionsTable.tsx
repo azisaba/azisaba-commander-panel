@@ -28,12 +28,14 @@ export function PermissionsTable(props: { permissions: Permission[], reload: Voi
                             <StyledTableCell align={"right"}>Actions</StyledTableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {props.permissions.map((value) => (
-                            <Permission permission={value} key={value.id} reload={props.reload}/>
-                        ))}
+                    {props.permissions &&
+                        <TableBody>
+                            {props.permissions.map((value) => (
+                                <Permission permission={value} key={value.id} reload={props.reload}/>
+                            ))}
 
-                    </TableBody>
+                        </TableBody>
+                    }
                 </Table>
             </TableContainer>
         </>

@@ -33,6 +33,7 @@ export function PermissionsPanel() {
                 ...prevState,
                 error: "Sorry. Server is down now"
             }))
+            return
         }
 
         if (res != 200) {
@@ -40,6 +41,7 @@ export function PermissionsPanel() {
                 ...prevState,
                 error: "Failed to fetch data. " + res.error
             }))
+            return
         }
 
         setState((prevState) => ({

@@ -31,13 +31,13 @@ export function Users() {
                     ...prevState,
                     error: "Sorry. Server is down now."
                 }))
-                return;
+                return
             }
 
             if (res.response_status != 200) {
                 setUsersState((prevState) => ({
                     ...prevState,
-                    error: "Sorry. Server is down now."
+                    error: "Failed to fetch users. " + res.error
                 }))
                 return
             }
