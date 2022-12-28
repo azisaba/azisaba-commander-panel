@@ -119,7 +119,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
                         backgroundColor: "#2B2B2B",
                         color: "#ffffff",
                         width: "100%",
-                        height: "40vw",
+                        height: "35vw",
                         borderRadius: "6px",
                         overflowY: "scroll"
                     }}
