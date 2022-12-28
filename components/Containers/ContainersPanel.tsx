@@ -35,7 +35,7 @@ export function ContainersPanel() {
         if (!res || res.response_status != 200) {
             setContainersState((prevState) => ({
                 ...prevState,
-                error: "Failed to fetch containers"
+                error: !res ? "Failed to fetch containers" : res.error
             }))
             return
         }
