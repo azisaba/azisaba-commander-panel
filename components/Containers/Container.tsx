@@ -21,7 +21,6 @@ export function Container(props: { container: Container }) {
                     >
                         <CardContent
                             sx={{
-                                height: "250px",
                                 width: "300px"
                             }}
                         >
@@ -30,6 +29,12 @@ export function Container(props: { container: Container }) {
                                 noWrap
                             >
                                 {props.container.name}
+                            </Typography>
+                            <Typography
+                                variant={"body1"}
+                                noWrap
+                            >
+                                Node: {props.container.docker_name}
                             </Typography>
                             <Typography
                                 variant={"body1"}

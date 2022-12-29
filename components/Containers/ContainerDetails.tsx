@@ -125,6 +125,12 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                             variant={"body1"}
                             noWrap
                         >
+                            Node:&nbsp;{props.container.docker_name}
+                        </Typography>
+                        <Typography
+                            variant={"body1"}
+                            noWrap
+                        >
                             Created
                             at: {new Date(props.container.created_at).toLocaleString(undefined, {timeZone: 'Asia/Tokyo'})}
                             <br/>
