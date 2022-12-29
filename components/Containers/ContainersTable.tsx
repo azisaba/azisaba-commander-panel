@@ -12,9 +12,9 @@ export function ContainersTable(props: ContainerTableProps) {
     if (props.filter && props.filter != '') {
         containers = containers.filter(value => {
             if(!value.project_name || !value.service_name) {
-                return false
+                return value.name.indexOf(props.filter) != -1 || value.docker_name.indexOf(props.filter) != -1
             }
-            return value.project_name.indexOf(props.filter) != -1 || value.service_name.indexOf(props.filter) != -1
+            return value.name.indexOf(props.filter) != -1 || value.docker_name.indexOf(props.filter) != -1 || value.project_name.indexOf(props.filter) != -1 || value.service_name.indexOf(props.filter) != -1
         })
     }
 
