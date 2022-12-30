@@ -20,7 +20,7 @@ export function Header() {
                 </Link>
                 <Link href={"/"}>
                     <h1 className={styles.title}>
-                        アズスバ司令官 translate by Goooogle
+                        Azisaba Commander
                     </h1>
                 </Link>
                 {session == null ?
