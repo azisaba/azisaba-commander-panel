@@ -20,20 +20,20 @@ export function Header() {
                 </Link>
                 <Link href={"/"}>
                     <h1 className={styles.title}>
-                        Azisaba Commander
+                        アズスバ司令官 translate by Goooogle
                     </h1>
                 </Link>
                 {session == null ?
                     <Link href={"/auth/signin"} className={styles.login}>
-                        Sign in
+                        サインイン
                     </Link>
                     :
                     <h2 className={styles.welcome_user}>
-                        Hi! {session.user.name}
+                        お元気ですか! {session.user.name}
                         <Button
                             onClick={() => signOut()}
                         >
-                            Sign out
+                            サインアウト
                         </Button>
                     </h2>
                 }

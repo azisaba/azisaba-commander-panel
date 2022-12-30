@@ -38,7 +38,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
         if (!res || res.response_status != 200) {
             setConsoleState((prevState) => ({
                 ...prevState,
-                error: "Failed to fetch logs"
+                error: "ログの取得に失敗しました。"
             }))
             return
         }
@@ -46,7 +46,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
         if(!res.logs) {
             setConsoleState((prevState) => ({
                 ...prevState,
-                error: "Console is not updated yet."
+                error: "ログがまだありません。"
             }))
             return
         }
@@ -95,7 +95,7 @@ export function ContainerConsole(props: ContainerConsoleProps) {
                         }}
                     />
                     }
-                    label={"Stop"}
+                    label={"更新停止"}
                 />
 
                 {/*Error*/}

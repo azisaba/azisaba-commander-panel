@@ -24,7 +24,7 @@ export function TwoFADisableForm() {
         )
 
         if (!res) {
-            setResultState("Sorry. Server is down now.")
+            setResultState("サーバーがダウンしています。")
             return
         }
 
@@ -33,7 +33,7 @@ export function TwoFADisableForm() {
             return
         }
 
-        setResultState("Success!")
+        setResultState("2段階認証を無効化しました。")
     }
 
     return (
@@ -52,12 +52,12 @@ export function TwoFADisableForm() {
                 }
             </Stack>
             <form onSubmit={handlerSubmit}>
-                <p>Disable 2FA</p>
+                <p>2段階認証の無効化</p>
                 <div className={styles.inputs}>
                     <TextField
                         id={"two_fa_disable"}
                         name={"two_fa"}
-                        label={"2FA Token"}
+                        label={"2段階認証コード(リカバリーコード)"}
                         variant={"standard"}
                         inputRef={codeRef}
                         fullWidth
@@ -71,7 +71,7 @@ export function TwoFADisableForm() {
                     variant={"contained"}
                     className={styles.submit}
                 >
-                    Disable
+                    無効化
                 </Button>
             </form>
         </>

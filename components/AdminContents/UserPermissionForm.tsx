@@ -68,7 +68,7 @@ export function UserPermissionForm(props: UserPermissionsTableProps) {
                 fullWidth
             >
                 <DialogTitle>
-                    Add user permission
+                    パーミッション追加
                 </DialogTitle>
                 <DialogContent>
                     <Autocomplete
@@ -95,7 +95,7 @@ export function UserPermissionForm(props: UserPermissionsTableProps) {
                         renderInput={(params) =>
                             <TextField
                                 {...params}
-                                label="Choose a permission"
+                                label="追加するパーミッション"
                             />
                         }
                         onChange={(event, value) => {
@@ -110,13 +110,13 @@ export function UserPermissionForm(props: UserPermissionsTableProps) {
                         variant={"outlined"}
                         onClick={props.onClose}
                     >
-                        Cancel
+                        キャンセル
                     </Button>
                     <Button
                         variant={"contained"}
                         onClick={addPermission}
                     >
-                        Add
+                        追加
                     </Button>
                 </DialogActions>
             </Dialog>

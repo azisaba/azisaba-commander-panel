@@ -40,7 +40,7 @@ export function AdminSidebar() {
                         <AccountCircleIcon/>
                     </ListItemIcon>
                     <ListItemText
-                        primary={"Account"}
+                        primary={"アカウント"}
                         primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                     />
                 </ListItemButton>
@@ -62,7 +62,7 @@ export function AdminSidebar() {
                                 <PeopleIcon/>
                             </ListItemIcon>
                             <ListItemText
-                                primary={"Manage Users"}
+                                primary={"ユーザー管理"}
                                 primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                             />
                         </ListItemButton>
@@ -82,7 +82,7 @@ export function AdminSidebar() {
                                 <AssignmentIndIcon/>
                             </ListItemIcon>
                             <ListItemText
-                                primary={"Permissions"}
+                                primary={"パーミッション管理"}
                                 primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                             />
                         </ListItemButton>

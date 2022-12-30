@@ -29,7 +29,7 @@ export function Users() {
             if (!res) {
                 setUsersState((prevState) => ({
                     ...prevState,
-                    error: "Sorry. Server is down now."
+                    error: "サーバーがダウンしています。"
                 }))
                 return
             }
@@ -37,7 +37,7 @@ export function Users() {
             if (res.response_status != 200) {
                 setUsersState((prevState) => ({
                     ...prevState,
-                    error: "Failed to fetch users. " + res.error
+                    error: "ユーザーの取得に失敗しました。エラー: " + res.error
                 }))
                 return
             }
@@ -54,7 +54,7 @@ export function Users() {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Users</h1>
+                    <h1>ユーザー管理</h1>
                     <hr/>
                 </div>
 
@@ -103,7 +103,7 @@ export function Users() {
                                                         color: "blue"
                                                     }}
                                                 >
-                                                    DETAIL
+                                                    詳細
                                                 </Link>
                                             </StyledTableCell>
                                     </StyledTableRow>

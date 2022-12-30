@@ -28,18 +28,17 @@ export function PermissionContentDialog(props: PermissionContentDialogProps) {
                 <DialogTitle>
                     {
                         props.method == "ADD" ?
-                            "Add permission content":
-                            "Edit permission content"
+                            "パーミッションコンテンツの追加":
+                            "パーミッションコンテンツの編集"
                     }
                 </DialogTitle>
                 <DialogContent>
                     <p>
-                        you need to fill two fields.<br/>
-                        &quot;Project&quot; is docker-compose project name.<br/>
-                        &quot;Service&quot; is docker-composed container name.<br/>
-                        Example:<br/>
-                        website -{">"} db (User allow to operate only &quto;db&quto; container in &quto;website&quto; project)<br/>
-                        website -{">"} * (User allow to operate all containers in&quto;website&quto; project)
+                        &quot;Project&quot;はdocker-compose.ymlがあるディレクトリ名に当たります。<br/>
+                        &quot;Service&quot;はdocker-composeのサービス名に当たります。<br/>
+                        例:<br/>
+                        website -{">"} db (&quot;website&quot;ディレクトリの&quot;db&quot;サービスが対象になります。)<br/>
+                        website -{">"} * (&quot;website&quot;ディレクトリの全てのサービスが対象になります。)
                     </p>
                     <TextField
                         type={"text"}
@@ -73,7 +72,7 @@ export function PermissionContentDialog(props: PermissionContentDialogProps) {
                         variant={"outlined"}
                         onClick={props.onClose}
                     >
-                        Cancel
+                        キャンセル
                     </Button>
                     <Button
                         variant={"contained"}
@@ -90,8 +89,8 @@ export function PermissionContentDialog(props: PermissionContentDialogProps) {
                     >
                         {
                             props.method == "ADD" ?
-                                "Add":
-                                "Edit"
+                                "追加":
+                                "編集"
                         }
                     </Button>
                 </DialogActions>

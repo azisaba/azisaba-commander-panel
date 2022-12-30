@@ -17,7 +17,7 @@ export function ContainerFilter(props: ContainerFilterProps) {
                 <TextField
                     type={"text"}
                     name={"filter"}
-                    label={"Filter"}
+                    label={"検索フィルタ"}
                     variant={"standard"}
                     onChange={(event) => {
                         props.onChange(event.target.value)

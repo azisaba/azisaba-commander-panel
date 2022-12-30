@@ -124,7 +124,7 @@ export function Registration() {
         if (!res) {
             setFormState((prevState) => ({
                 ...prevState,
-                result: "Server is down now"
+                result: "サーバーがダウンしています"
             }))
             return
         }
@@ -155,7 +155,7 @@ export function Registration() {
             }}
         >
             <h3 className={styles.header}>
-                Registration
+                登録
             </h3>
 
             <Stack
@@ -171,10 +171,8 @@ export function Registration() {
                             mb: '20px'
                         }}
                     >
-                        You need to fill out all input fields.<br/>
-                        You can use alphanumeric and characters.
-                        Username must be more longer than 4. Password must be more than 8.<br/>
-                        Also, Password and Confirm Password must be correctly matched.
+                        ユーザー名は半角英数字、パスワードは半角英数字記号が使えます。<br/>
+                        ユーザー名は4文字以上32文字以下、パスワードは8文字以上100文字以下で設定できます。
                     </Alert>
                 }
                 {formState.result &&
@@ -193,7 +191,7 @@ export function Registration() {
                 <TextField
                     id={"username"}
                     name={"username"}
-                    label={"Username"}
+                    label={"ユーザー名"}
                     variant={"standard"}
                     inputRef={usernameRef}
                     onChange={onChangeUsername}
@@ -206,7 +204,7 @@ export function Registration() {
                 <TextField
                     id={"password"}
                     name={"password"}
-                    label={"Password"}
+                    label={"パスワード"}
                     type={"password"}
                     variant={"standard"}
                     inputRef={passwordRef}
@@ -220,7 +218,7 @@ export function Registration() {
                 <TextField
                     id={"confirm_password"}
                     name={"confirm_password"}
-                    label={"Confirm Password"}
+                    label={"パスワード(確認)"}
                     type={"password"}
                     variant={"standard"}
                     inputRef={confirmPasswordRef}
@@ -234,10 +232,10 @@ export function Registration() {
             </div>
             <div className={styles.button_container}>
                 <Button href={"/"} variant={"outlined"}>
-                    Cancel
+                    キャンセル
                 </Button>
                 <Button onClick={handlerSubmit} variant={"contained"}>
-                    Register
+                    登録
                 </Button>
             </div>
         </Box>
