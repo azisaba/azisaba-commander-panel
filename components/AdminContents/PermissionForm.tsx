@@ -106,7 +106,7 @@ export function PermissionForm(props: PermissionFormProps) {
                 session?.accessToken
             )
             if (!res || res.response_status != 200) {
-                console.log("Failed to create/update permission")
+                console.log("パーミッションの変更に失敗しました。")
             }
 
             await props.reload()
@@ -128,15 +128,15 @@ export function PermissionForm(props: PermissionFormProps) {
                 >
                     <DialogTitle>{
                         props.method == "CREATE" ?
-                            "Create permission" :
-                            "Edit permission"
+                            "パーミッション作成" :
+                            "パーミッション編集"
                     }</DialogTitle>
                     <DialogContent>
                         <TextField
                             type={"text"}
                             name={"name"}
                             id={"name"}
-                            label={"Name"}
+                            label={"パーミッション名"}
                             inputRef={nameRef}
                             defaultValue={!props.permission ? "" : props.permission.name}
                             fullWidth
@@ -196,7 +196,7 @@ export function PermissionForm(props: PermissionFormProps) {
                             variant={"outlined"}
                             onClick={props.setClose}
                         >
-                            Cancel
+                            キャンセル
                         </Button>
                         <Button
                             type={"submit"}
@@ -204,8 +204,8 @@ export function PermissionForm(props: PermissionFormProps) {
                         >
                             {
                                 props.method == "CREATE" ?
-                                    "Create" :
-                                    "Edit"
+                                    "作成" :
+                                    "編集"
                             }
                         </Button>
                     </DialogActions>

@@ -21,7 +21,6 @@ export function Container(props: { container: Container }) {
                     >
                         <CardContent
                             sx={{
-                                height: "250px",
                                 width: "300px"
                             }}
                         >
@@ -35,13 +34,19 @@ export function Container(props: { container: Container }) {
                                 variant={"body1"}
                                 noWrap
                             >
-                                Project: {props.container.project_name}
+                                ノード: {props.container.docker_name}
                             </Typography>
                             <Typography
                                 variant={"body1"}
                                 noWrap
                             >
-                                Service: {props.container.service_name}
+                                プロジェクト: {props.container.project_name}
+                            </Typography>
+                            <Typography
+                                variant={"body1"}
+                                noWrap
+                            >
+                                サービス: {props.container.service_name}
                             </Typography>
                             <br/>
                             {/*Status*/}
@@ -60,7 +65,23 @@ export function Container(props: { container: Container }) {
                                         <span style={{
                                             color: props.container.status.state.status == "running" ? "green" : "red"
                                         }}>
-                                            {props.container.status.state.status}
+                                            {
+                                                props.container.status.state.status == "running" ? (
+                                                    "起動"
+                                                ) : props.container.status.state.status == "exited" ? (
+                                                    "停止"
+                                                ) : props.container.status.state.status == "restarting" ? (
+                                                    "再起動中"
+                                                ) : props.container.status.state.status == "paused" ? (
+                                                    "一時停止"
+                                                ) : props.container.status.state.status == "dead" ? (
+                                                    "クラッシュ"
+                                                ) : props.container.status.state.status == "created" ? (
+                                                    "作成中"
+                                                ) : (
+                                                    props.container.status.state.status
+                                                )
+                                            }
                                         </span>
                                     </Typography>
                                     <Typography

@@ -70,7 +70,7 @@ export function UserProfile(props: { user: User }) {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Profile</h1>
+                    <h1>プロファイル</h1>
                     <hr/>
                 </div>
 
@@ -92,20 +92,22 @@ export function UserProfile(props: { user: User }) {
                         </h1>
                         <h3>ID: {user.id}</h3>
                         <div className={profileStyles.group}>
-                            <h3>Group: {user.group}</h3>
+                            <h3>グループ: {user.group}</h3>
                             <Button
                                 onClick={() => setOpenGroupEdit(true)}
                             >
-                                Edit
+                                編集
                             </Button>
                             {/*Edit Dialog*/}
                             <Dialog
                                 open={openGroupEdit}
                                 onClose={() => setOpenGroupEdit(false)}
+                                maxWidth={"xs"}
+                                fullWidth
                             >
                                 <form onSubmit={handlerGroupEdit}>
                                     <DialogTitle>
-                                        Edit group
+                                        グループ編集
                                     </DialogTitle>
                                     <DialogContent>
                                         <Autocomplete
@@ -123,7 +125,7 @@ export function UserProfile(props: { user: User }) {
                                             isOptionEqualToValue={(option, newValue) => {
                                                 return option.label === newValue.label;
                                             }}
-                                            renderInput={(params) => <TextField {...params} label="Group"/>}
+                                            renderInput={(params) => <TextField {...params} label="グループ"/>}
                                         />
                                     </DialogContent>
                                     <DialogActions>
@@ -131,13 +133,13 @@ export function UserProfile(props: { user: User }) {
                                             variant={"outlined"}
                                             onClick={() => setOpenGroupEdit(false)}
                                         >
-                                            Cancel
+                                            キャンセル
                                         </Button>
                                         <Button
                                             type={"submit"}
                                             variant={"contained"}
                                         >
-                                            Edit
+                                            編集
                                         </Button>
                                     </DialogActions>
                                 </form>
@@ -150,18 +152,18 @@ export function UserProfile(props: { user: User }) {
                                 color={"error"}
                                 onClick={() => setOpenDeleteUser(true)}
                             >
-                                DELETE USER
+                                ユーザーの削除
                             </Button>
                             <ConfirmDialog
                                 open={openDeleteUser}
                                 onClose={() => setOpenDeleteUser(false)}
                                 onConfirm={handlerDeleteUser}
-                                confirmText={"delete"}
+                                confirmText={"削除"}
                                 confirmColor={"error"}
                             >
                                 <DialogContent>
                                     <DialogContentText>
-                                        Are you sure to delete this user?
+                                        本当に削除しますか？復元できません。
                                     </DialogContentText>
                                 </DialogContent>
                             </ConfirmDialog>

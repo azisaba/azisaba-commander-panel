@@ -32,7 +32,7 @@ export function UserPermissions(props: { user: User }) {
         if (!res) {
             setState((prevState) => ({
                 ...prevState,
-                error: "Sorry. Server is down now"
+                error: "サーバーがダウンしています。"
             }))
             return
         }
@@ -40,7 +40,7 @@ export function UserPermissions(props: { user: User }) {
         if (res.response_status != 200) {
             setState((prevState) => ({
                 ...prevState,
-                error: "Failed to fetch data. " + res.error
+                error: "データの取得に失敗しました。エラー: " + res.error
             }))
             return
         }
@@ -61,7 +61,7 @@ export function UserPermissions(props: { user: User }) {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Permissions</h1>
+                    <h1>パーミッション一覧</h1>
                     <hr/>
                 </div>
                 <Stack

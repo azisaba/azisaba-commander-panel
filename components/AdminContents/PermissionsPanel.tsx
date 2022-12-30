@@ -31,7 +31,7 @@ export function PermissionsPanel() {
         if (!res) {
             setState((prevState) => ({
                 ...prevState,
-                error: "Sorry. Server is down now"
+                error: "サーバーがダウンしています。"
             }))
             return
         }
@@ -39,7 +39,7 @@ export function PermissionsPanel() {
         if (res.response_status != 200) {
             setState((prevState) => ({
                 ...prevState,
-                error: "Failed to fetch data. " + res.error
+                error: "データの取得に失敗しました。エラー: " + res.error
             }))
             return
         }
@@ -60,7 +60,7 @@ export function PermissionsPanel() {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Permissions</h1>
+                    <h1>パーミッション管理</h1>
                     <hr/>
                 </div>
                 <Stack

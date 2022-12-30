@@ -30,7 +30,7 @@ export function ConfirmDialog(props: ConfirmDialogProps) {
                     variant={"outlined"}
                     onClick={props.onClose}
                 >
-                    Cancel
+                    キャンセル
                 </Button>
                 <Button
                     variant={"contained"}

@@ -26,7 +26,7 @@ export function Permission(props: { permission: Permission, reload: VoidFunction
         )
 
         if (!res || res.response_status != 200) {
-            console.log("Failed to delete permission")
+            console.log("パーミッションの削除に失敗しました。")
             return
         }
 
@@ -52,13 +52,13 @@ export function Permission(props: { permission: Permission, reload: VoidFunction
                         size={"small"}
                         onClick={() => setOpenEdit(true)}
                     >
-                        Edit
+                        編集
                     </Button>
                     <Button
                         size={"small"}
                         onClick={() => setOpenDelete(true)}
                     >
-                        Delete
+                        削除
                     </Button>
                 </StyledTableCell>
             </StyledTableRow>
@@ -77,15 +77,15 @@ export function Permission(props: { permission: Permission, reload: VoidFunction
                 open={openDelete}
                 onClose={() => setOpenDelete(false)}
                 onConfirm={deletePermission}
-                confirmText={"Delete"}
+                confirmText={"削除"}
                 confirmColor={"warning"}
             >
                 <DialogTitle>
-                    Delete &quot;{props.permission.name}&quot;
+                    &quot;{props.permission.name}&quot;を削除
                 </DialogTitle>
                 <DialogContent>
-                    Are you sure to delete &quot;{props.permission.name}&quot; permission?<br/>
-                    Deleted Permission cant restore.
+                    本当に&quot;{props.permission.name}&quot;を削除しますか?<br/>
+                    この操作は、復元できません。
                 </DialogContent>
             </ConfirmDialog>
 

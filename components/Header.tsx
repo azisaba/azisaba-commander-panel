@@ -25,15 +25,15 @@ export function Header() {
                 </Link>
                 {session == null ?
                     <Link href={"/auth/signin"} className={styles.login}>
-                        Sign in
+                        サインイン
                     </Link>
                     :
                     <h2 className={styles.welcome_user}>
-                        Hi! {session.user.name}
+                        お元気ですか! {session.user.name}
                         <Button
                             onClick={() => signOut()}
                         >
-                            Sign out
+                            サインアウト
                         </Button>
                     </h2>
                 }

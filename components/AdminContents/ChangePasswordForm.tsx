@@ -95,7 +95,7 @@ export function ChangePasswordForm() {
         if (!res) {
             setFormState((prevState) => ({
                 ...prevState,
-                result: "Sorry. API Server is down now."
+                result: "サーバーがダウンしています。"
             }))
             return
         }
@@ -110,7 +110,7 @@ export function ChangePasswordForm() {
 
         setFormState((prevState) => ({
             ...prevState,
-            result: "Success!"
+            result: "パスワードの変更に成功しました！"
         }))
     }
 
@@ -119,7 +119,7 @@ export function ChangePasswordForm() {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Change password</h1>
+                    <h1>パスワード変更</h1>
                     <hr/>
                 </div>
 
@@ -138,15 +138,13 @@ export function ChangePasswordForm() {
                 </Stack>
                 <form onSubmit={handlerSubmit}>
                     <p>
-                        You need to fill out all input fields.<br/>
-                        You can use alphanumeric and characters.
-                        Password must be more than 8.
+                        パスワードは半角英数字記号で、8文字以上100文字以下で設定できます。
                     </p>
                     <div className={styles.inputs}>
                         <TextField
                             id={"old_password"}
                             name={"old_password"}
-                            label={"Old Password"}
+                            label={"古いパスワード"}
                             type={"password"}
                             variant={"standard"}
                             inputRef={oldPasswordRef}
@@ -160,7 +158,7 @@ export function ChangePasswordForm() {
                         <TextField
                             id={"new_password"}
                             name={"new_password"}
-                            label={"New Password"}
+                            label={"新しいパスワード"}
                             type={"password"}
                             variant={"standard"}
                             inputRef={newPasswordRef}
@@ -174,7 +172,7 @@ export function ChangePasswordForm() {
                         <TextField
                             id={"confirm_new_password"}
                             name={"confirm_new_password"}
-                            label={"Confirm New Password"}
+                            label={"新しいパスワード(確認)"}
                             type={"password"}
                             variant={"standard"}
                             inputRef={confirmNewPasswordRef}
@@ -188,7 +186,7 @@ export function ChangePasswordForm() {
                         <TextField
                             id={"two_fa"}
                             name={"two_fa"}
-                            label={"2FA Token (Optional)"}
+                            label={"2段階認証コード(任意)"}
                             variant={"standard"}
                             inputRef={twoFATokenRef}
                             fullWidth
@@ -202,7 +200,7 @@ export function ChangePasswordForm() {
                         variant={"contained"}
                         className={styles.submit}
                     >
-                        Change
+                        変更
                     </Button>
                 </form>
             </div>

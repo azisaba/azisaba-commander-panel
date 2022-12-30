@@ -19,7 +19,7 @@ export function UserPermission(props: {user: User, permission: Permission, reloa
         )
 
         if (!res || res.response_status != 200) {
-            console.log("Failed to delete permission")
+            console.log("パーミッションの削除に失敗しました。")
             return
         }
 
@@ -45,7 +45,7 @@ export function UserPermission(props: {user: User, permission: Permission, reloa
                         size={"small"}
                         onClick={deletePermission}
                     >
-                        Delete
+                        削除
                     </Button>
                 </StyledTableCell>
             </StyledTableRow>

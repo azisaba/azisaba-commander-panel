@@ -49,7 +49,7 @@ export function TwoFASection() {
         <>
             <div className={styles.content} >
                 <div className={styles.title}>
-                    <h1>2FA settings</h1>
+                    <h1>2段階認証設定</h1>
                     <hr/>
                 </div>
                 {state.loading ?

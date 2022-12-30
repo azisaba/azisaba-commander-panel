@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useSession} from "next-auth/react";
+import Link from "next/link";
 
 export function AdminSidebar() {
     const {data: session} = useSession()
@@ -40,7 +41,7 @@ export function AdminSidebar() {
                         <AccountCircleIcon/>
                     </ListItemIcon>
                     <ListItemText
-                        primary={"Account"}
+                        primary={"アカウント"}
                         primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                     />
                 </ListItemButton>
@@ -62,7 +63,7 @@ export function AdminSidebar() {
                                 <PeopleIcon/>
                             </ListItemIcon>
                             <ListItemText
-                                primary={"Manage Users"}
+                                primary={"ユーザー管理"}
                                 primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                             />
                         </ListItemButton>
@@ -82,7 +83,7 @@ export function AdminSidebar() {
                                 <AssignmentIndIcon/>
                             </ListItemIcon>
                             <ListItemText
-                                primary={"Permissions"}
+                                primary={"パーミッション管理"}
                                 primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                             />
                         </ListItemButton>
@@ -90,6 +91,18 @@ export function AdminSidebar() {
                 }
             </Box>
 
+            <Link
+                href={"/"}
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    padding: "20px 20px",
+                    color: "blue"
+                }}
+            >
+                コンテナ一覧に戻る
+            </Link>
         </>
     )
 

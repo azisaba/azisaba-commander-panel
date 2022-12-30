@@ -35,7 +35,7 @@ export function ContainersPanel() {
         if (!res || res.response_status != 200) {
             setContainersState((prevState) => ({
                 ...prevState,
-                error: !res ? "Failed to fetch containers" : res.error
+                error: !res ? "コンテナの取得に失敗しました。" : res.error
             }))
             return
         }
@@ -58,7 +58,7 @@ export function ContainersPanel() {
         <>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>Containers</h1>
+                    <h1>コンテナ一覧</h1>
                     <hr/>
                 </div>
 

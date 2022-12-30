@@ -1,4 +1,13 @@
-import {Alert, Backdrop, Button, CircularProgress, DialogActions, Stack, Typography} from "@mui/material";
+import {
+    Alert,
+    Backdrop,
+    Button,
+    CircularProgress,
+    DialogActions,
+    DialogTitle,
+    Stack,
+    Typography
+} from "@mui/material";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faMemory,
@@ -11,6 +20,7 @@ import {
 import React, {useState} from "react";
 import {fetchData} from "../../utils/FetchUnit";
 import {useSession} from "next-auth/react";
+import {ConfirmDialog} from "../ConfirmDialog";
 
 type ContainerDetailsProps = {
     container: Container,
@@ -32,6 +42,9 @@ export function ContainerDetails(props: ContainerDetailsProps) {
         error: undefined,
         success: undefined
     })
+    const [openStart, setOpenStart] = useState(false)
+    const [openRestart, setOpenRestart] = useState(false)
+    const [openStop, setOpenStop] = useState(false)
 
     const onServerAction = async (method: ServerActionMethod) => {
         setIsWaiting(true)
@@ -46,7 +59,7 @@ export function ContainerDetails(props: ContainerDetailsProps) {
 
         if (!res) {
             setResultState(() => ({
-                error: "Sorry. Server is down now.",
+                error: "サーバーがダウンしています。",
                 success: undefined
             }))
 
@@ -66,7 +79,7 @@ export function ContainerDetails(props: ContainerDetailsProps) {
 
         setResultState(() => ({
             error: undefined,
-            success: "Succeeded to "+ method.toLowerCase() +" server!"
+            success: "コンテナの操作に成功しました。操作:"+ method.toLowerCase()
         }))
 
         setIsWaiting(false)
@@ -114,22 +127,42 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                             variant={"body1"}
                             noWrap
                         >
-                            Status:&nbsp;
+                            状態:&nbsp;
                             <span style={{
                                 color: props.container.status.state.status == "running" ? "green" : "red"
                             }}>
-                                {props.container.status.state.status}
+                                {
+                                    props.container.status.state.status == "running" ? (
+                                        "起動"
+                                    ) : props.container.status.state.status == "exited" ? (
+                                        "停止"
+                                    ) : props.container.status.state.status == "restarting" ? (
+                                        "再起動中"
+                                    ) : props.container.status.state.status == "paused" ? (
+                                        "一時停止"
+                                    ) : props.container.status.state.status == "dead" ? (
+                                        "クラッシュ"
+                                    ) : props.container.status.state.status == "created" ? (
+                                        "作成中"
+                                    ) : (
+                                        props.container.status.state.status
+                                    )
+                                }
                             </span>
                         </Typography>
                         <Typography
                             variant={"body1"}
                             noWrap
                         >
-                            Created
-                            at: {new Date(props.container.created_at).toLocaleString(undefined, {timeZone: 'Asia/Tokyo'})}
+                            ノード:&nbsp;{props.container.docker_name}
+                        </Typography>
+                        <Typography
+                            variant={"body1"}
+                            noWrap
+                        >
+                            作成時刻: {new Date(props.container.created_at).toLocaleString(undefined, {timeZone: 'Asia/Tokyo'})}
                             <br/>
-                            Started
-                            at: {new Date(props.container.status.state.started_at).toLocaleString(undefined, {timeZone: 'Asia/Tokyo'})}
+                            起動時刻: {new Date(props.container.status.state.started_at).toLocaleString(undefined, {timeZone: 'Asia/Tokyo'})}
                         </Typography>
                         <br/>
                         <Typography
@@ -189,21 +222,21 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                             TX: <br/>
                             {/*Byte*/}
                             {Math.floor(props.container.status.network_stats.tx_byte_per_sec / Math.pow(10, 6))} MB/s&nbsp;
-                            (Total: {Math.floor(props.container.status.network_stats.tx_total_byte / Math.pow(10, 6))} MB)
+                            (合計: {Math.floor(props.container.status.network_stats.tx_total_byte / Math.pow(10, 6))} MB)
                             <br/>
                             {/*Packet*/}
                             {Math.floor(props.container.status.network_stats.tx_packet_per_sec)} Packets/s&nbsp;
-                            (Total: {props.container.status.network_stats.tx_total_packet} Packets)
+                            (合計: {props.container.status.network_stats.tx_total_packet} Packets)
                             <br/>
 
                             RX: <br/>
                             {/*Byte*/}
                             {Math.floor(props.container.status.network_stats.rx_byte_per_sec / Math.pow(10, 6))} MB/s&nbsp;
-                            (Total: {Math.floor(props.container.status.network_stats.rx_total_byte / Math.pow(10, 6))} MB)
+                            (合計: {Math.floor(props.container.status.network_stats.rx_total_byte / Math.pow(10, 6))} MB)
                             <br/>
                             {/*Packet*/}
                             {Math.floor(props.container.status.network_stats.rx_packet_per_sec)} Packets/s&nbsp;
-                            (Total: {props.container.status.network_stats.rx_total_packet} Packets)
+                            (合計: {props.container.status.network_stats.rx_total_packet} Packets)
                         </Typography>
                     </>
                 }
@@ -218,24 +251,59 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                     }}
                 >
                     <Button
-                        onClick={() => onServerAction("START")}
+                        onClick={() => setOpenStart(true)}
                     >
                         <FontAwesomeIcon icon={faCirclePlay}/>&nbsp;
-                        Start
+                        起動
                     </Button>
                     <Button
-                        onClick={() => onServerAction("RESTART")}
+                        onClick={() => setOpenRestart(true)}
                     >
                         <FontAwesomeIcon icon={faRotateRight}/>&nbsp;
-                        Restart
+                        再起動
                     </Button>
                     <Button
-                        onClick={() => onServerAction("STOP")}
+                        onClick={() => setOpenStop(true)}
                     >
                         <FontAwesomeIcon icon={faPowerOff}/>&nbsp;
-                        Stop
+                        停止
                     </Button>
                 </DialogActions>
+
+                {/*Confirm*/}
+                <ConfirmDialog
+                    open={openStart}
+                    onClose={() => setOpenStart(false)}
+                    onConfirm={() => onServerAction("START")}
+                    confirmText={"起動"}
+                    confirmColor={"success"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を起動
+                    </DialogTitle>
+                </ConfirmDialog>
+                <ConfirmDialog
+                    open={openRestart}
+                    onClose={() => setOpenRestart(false)}
+                    onConfirm={() => onServerAction("RESTART")}
+                    confirmText={"再起動"}
+                    confirmColor={"warning"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を再起動
+                    </DialogTitle>
+                </ConfirmDialog>
+                <ConfirmDialog
+                    open={openStop}
+                    onClose={() => setOpenStop(false)}
+                    onConfirm={() => onServerAction("STOP")}
+                    confirmText={"停止"}
+                    confirmColor={"error"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を停止
+                    </DialogTitle>
+                </ConfirmDialog>
             </div>
         </>
     )

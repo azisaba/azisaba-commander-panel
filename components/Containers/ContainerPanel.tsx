@@ -47,7 +47,7 @@ export function ContainerPanel(props: ContainerPanelProps) {
                         }}
                     >
                         <BottomNavigationAction
-                            label="Detail"
+                            label="詳細情報"
                             icon={
                                 <FontAwesomeIcon
                                     icon={faCircleInfo}
@@ -55,7 +55,7 @@ export function ContainerPanel(props: ContainerPanelProps) {
                             }
                         />
                         <BottomNavigationAction
-                            label="Console"
+                            label="コンソール"
                             icon={
                                 <FontAwesomeIcon
                                     icon={faTerminal}

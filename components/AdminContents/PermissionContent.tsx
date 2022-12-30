@@ -24,13 +24,13 @@ export function PermissionContent(props: PermissionContentProps) {
                         size={"small"}
                         onClick={() => setOpenEdit(true)}
                     >
-                        Edit
+                        編集
                     </Button>
                     <Button
                         size={"small"}
                         onClick={() => props.onDelete(props.id)}
                     >
-                        Delete
+                        削除
                     </Button>
                 </StyledTableCell>
             </StyledTableRow>

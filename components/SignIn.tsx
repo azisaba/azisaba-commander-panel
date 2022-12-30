@@ -88,7 +88,7 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                 }}
             >
                 <h3 className={styles.header}>
-                    Sign in
+                    サインイン
                 </h3>
 
                 <Stack
@@ -104,9 +104,8 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                                 mb: '20px'
                             }}
                         >
-                            You need to fill out all input fields.<br/>
-                            You can use alphanumeric and characters.
-                            Username must be more longer than 4. Password must be more than 8.
+                            ユーザー名は半角英数字、パスワードは半角英数字記号が使えます。<br/>
+                            ユーザー名は4文字以上32文字以下、パスワードは8文字以上100文字以下で入力してください。
                         </Alert>
                     }
                 </Stack>
@@ -121,7 +120,7 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                         <TextField
                             id={"username"}
                             name={"username"}
-                            label={"Username"}
+                            label={"ユーザー名"}
                             variant={"standard"}
                             inputRef={usernameRef}
                             onChange={onChangeUsername}
@@ -135,7 +134,7 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                         <TextField
                             id={"password"}
                             name={"password"}
-                            label={"Password"}
+                            label={"パスワード"}
                             type={"password"}
                             variant={"standard"}
                             inputRef={passwordRef}
@@ -150,7 +149,7 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                         <TextField
                             id={"two_fa_token"}
                             name={"two_fa_token"}
-                            label={"2FA token (optional)"}
+                            label={"2段階認証コード(任意)"}
                             variant={"standard"}
                             inputRef={twoFARef}
                             fullWidth
@@ -161,10 +160,10 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
                     </div>
                     <div className={styles.button_container}>
                         <Button href={"/"} variant={"outlined"}>
-                            Cancel
+                            キャンセル
                         </Button>
                         <Button type={"submit"} variant={"contained"}>
-                            Sign In
+                            サインイン
                         </Button>
                     </div>
                 </form>
@@ -172,7 +171,7 @@ export function SignIn(props: { csrfToken: string, error: boolean }) {
 
             <div className={styles.go_to_register}>
                  {/*eslint-disable-next-line react/no-unescaped-entities */}
-                <p>If you don't have account, please create <Link href={"/auth/register"} style={{color: "blue"}}>here</Link>.</p>
+                <p>アカウントをまだ作成されてない場合は、<Link href={"/auth/register"} style={{color: "blue"}}>ここ</Link>から登録してください。</p>
             </div>
         </>
     )
