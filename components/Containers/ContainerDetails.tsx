@@ -1,4 +1,13 @@
-import {Alert, Backdrop, Button, CircularProgress, DialogActions, Stack, Typography} from "@mui/material";
+import {
+    Alert,
+    Backdrop,
+    Button,
+    CircularProgress,
+    DialogActions,
+    DialogTitle,
+    Stack,
+    Typography
+} from "@mui/material";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faMemory,
@@ -11,6 +20,7 @@ import {
 import React, {useState} from "react";
 import {fetchData} from "../../utils/FetchUnit";
 import {useSession} from "next-auth/react";
+import {ConfirmDialog} from "../ConfirmDialog";
 
 type ContainerDetailsProps = {
     container: Container,
@@ -32,6 +42,9 @@ export function ContainerDetails(props: ContainerDetailsProps) {
         error: undefined,
         success: undefined
     })
+    const [openStart, setOpenStart] = useState(false)
+    const [openRestart, setOpenRestart] = useState(false)
+    const [openStop, setOpenStop] = useState(false)
 
     const onServerAction = async (method: ServerActionMethod) => {
         setIsWaiting(true)
@@ -238,24 +251,59 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                     }}
                 >
                     <Button
-                        onClick={() => onServerAction("START")}
+                        onClick={() => setOpenStart(true)}
                     >
                         <FontAwesomeIcon icon={faCirclePlay}/>&nbsp;
                         起動
                     </Button>
                     <Button
-                        onClick={() => onServerAction("RESTART")}
+                        onClick={() => setOpenRestart(true)}
                     >
                         <FontAwesomeIcon icon={faRotateRight}/>&nbsp;
                         再起動
                     </Button>
                     <Button
-                        onClick={() => onServerAction("STOP")}
+                        onClick={() => setOpenStop(true)}
                     >
                         <FontAwesomeIcon icon={faPowerOff}/>&nbsp;
                         停止
                     </Button>
                 </DialogActions>
+
+                {/*Confirm*/}
+                <ConfirmDialog
+                    open={openStart}
+                    onClose={() => setOpenStart(false)}
+                    onConfirm={() => onServerAction("START")}
+                    confirmText={"起動"}
+                    confirmColor={"success"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を起動
+                    </DialogTitle>
+                </ConfirmDialog>
+                <ConfirmDialog
+                    open={openRestart}
+                    onClose={() => setOpenRestart(false)}
+                    onConfirm={() => onServerAction("RESTART")}
+                    confirmText={"再起動"}
+                    confirmColor={"warning"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を再起動
+                    </DialogTitle>
+                </ConfirmDialog>
+                <ConfirmDialog
+                    open={openStop}
+                    onClose={() => setOpenStop(false)}
+                    onConfirm={() => onServerAction("STOP")}
+                    confirmText={"停止"}
+                    confirmColor={"error"}
+                >
+                    <DialogTitle>
+                        &quot;{props.container.name}&quot;を停止
+                    </DialogTitle>
+                </ConfirmDialog>
             </div>
         </>
     )
