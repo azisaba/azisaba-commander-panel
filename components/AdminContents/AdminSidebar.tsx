@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useSession} from "next-auth/react";
+import Link from "next/link";
 
 export function AdminSidebar() {
     const {data: session} = useSession()
@@ -90,6 +91,18 @@ export function AdminSidebar() {
                 }
             </Box>
 
+            <Link
+                href={"/"}
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    padding: "20px 20px",
+                    color: "blue"
+                }}
+            >
+                コンテナ一覧に戻る
+            </Link>
         </>
     )
 
