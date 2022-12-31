@@ -10,7 +10,6 @@ RUN yarn
 # copy files for build
 COPY pages/ ./pages/
 COPY components/ ./components/
-COPY public/ ./public/
 COPY styles/ ./styles/
 COPY types/ ./types/
 COPY utils/ ./utils/
