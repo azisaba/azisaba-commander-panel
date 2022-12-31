@@ -4,9 +4,9 @@ import {fetchData} from "../../../utils/FetchUnit";
 import {NextApiRequest, NextApiResponse} from "next";
 import requestIp from "request-ip"
 
-export const config = {
-    runtime: 'experimental-edge',
-}
+// export const config = {
+//     runtime: 'experimental-edge',
+// }
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
