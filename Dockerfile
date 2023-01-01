@@ -28,4 +28,4 @@ COPY --from=Builder /app/.next/ ./.next/
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD cp /app/config/.env.local /app && yarn start
