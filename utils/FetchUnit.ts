@@ -1,3 +1,4 @@
+import getConfig from 'next/config'
 type FetchMethod = "GET" | "POST" | "PATCH" | "DELETE"
 
 export const fetchData = async (url: string, method: FetchMethod, data?: object, token?: string, clientSideIP?: string): Promise<any | undefined> => {
@@ -27,8 +28,10 @@ export const fetchData = async (url: string, method: FetchMethod, data?: object,
             baseRequest.body = JSON.stringify(data)
         }
 
-
-        const response = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + url, baseRequest)
+        const { publicRuntimeConfig } = getConfig()
+        console.log(publicRuntimeConfig)
+        const response = await fetch(publicRuntimeConfig.API_BASE_URL + url, baseRequest)
+        // const response = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + url, baseRequest)
 
         return {
             response_status: response.status,
