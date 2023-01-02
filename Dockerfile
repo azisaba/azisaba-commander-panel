@@ -7,6 +7,13 @@ COPY package*.json ./
 COPY yarn.lock ./
 RUN yarn
 
+FROM node:18.12.0-alpine AS Runner
+
+WORKDIR /app
+
+COPY --from=Builder /app/package.json ./
+COPY --from=Builder /app/node_modules/ ./node_modules/
+
 # copy files for build
 COPY pages/ ./pages/
 COPY components/ ./components/
@@ -16,16 +23,6 @@ COPY utils/ ./utils/
 COPY tsconfig.json .
 COPY next.config.js .
 
-RUN yarn build
-
-FROM node:18.12.0-alpine AS Runner
-
-WORKDIR /app
-
-COPY --from=Builder /app/package.json ./
-COPY --from=Builder /app/node_modules/ ./node_modules/
-COPY --from=Builder /app/.next/ ./.next/
-
 EXPOSE 3000
 
-CMD yarn start
+CMD yarn build && yarn start
