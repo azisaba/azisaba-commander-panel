@@ -46,7 +46,11 @@ export function ContainerDetails(props: ContainerDetailsProps) {
     const [openRestart, setOpenRestart] = useState(false)
     const [openStop, setOpenStop] = useState(false)
 
-    const onServerAction = async (method: ServerActionMethod) => {
+    const onServerAction = async (method: ServerActionMethod, closeDialog: VoidFunction) => {
+        //  close dialog
+        closeDialog()
+
+        //  display waiting circle
         setIsWaiting(true)
 
         //  fetch
@@ -274,7 +278,7 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                 <ConfirmDialog
                     open={openStart}
                     onClose={() => setOpenStart(false)}
-                    onConfirm={() => onServerAction("START")}
+                    onConfirm={() => onServerAction("START", () => setOpenStart(false))}
                     confirmText={"起動"}
                     confirmColor={"success"}
                 >
@@ -285,7 +289,7 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                 <ConfirmDialog
                     open={openRestart}
                     onClose={() => setOpenRestart(false)}
-                    onConfirm={() => onServerAction("RESTART")}
+                    onConfirm={() => onServerAction("RESTART", () => setOpenRestart(false))}
                     confirmText={"再起動"}
                     confirmColor={"warning"}
                 >
@@ -296,7 +300,7 @@ export function ContainerDetails(props: ContainerDetailsProps) {
                 <ConfirmDialog
                     open={openStop}
                     onClose={() => setOpenStop(false)}
-                    onConfirm={() => onServerAction("STOP")}
+                    onConfirm={() => onServerAction("STOP", () => setOpenStop(false))}
                     confirmText={"停止"}
                     confirmColor={"error"}
                 >
