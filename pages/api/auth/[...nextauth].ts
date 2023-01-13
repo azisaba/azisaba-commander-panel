@@ -2,7 +2,7 @@ import NextAuth, {User} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {fetchData} from "../../../utils/FetchUnit";
 import {NextApiRequest, NextApiResponse} from "next";
-import requestIp from "request-ip"
+import {getIP} from "../../../utils/ClientsideUtil";
 
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
@@ -41,7 +41,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                             '2fa_token': credentials.two_fa_token,
                         },
                         undefined,
-                        requestIp.getClientIp(req) ?? undefined
+                        getIP(req) ?? undefined
                     )
                     if (!loginRes || loginRes.response_status != 200) {
                         return null
@@ -54,7 +54,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                         "GET",
                         {},
                         loginRes.state,
-                        requestIp.getClientIp(req) ?? undefined
+                        getIP(req) ?? undefined
                     )
                     if (!profile || profile.response_status != 200) {
                         return null
