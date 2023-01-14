@@ -43,6 +43,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                         undefined,
                         getIP(req) ?? undefined
                     )
+
+                    //  debug
+                    console.log("id: ", credentials.username, " result: ",loginRes)
+
                     if (!loginRes || loginRes.response_status != 200) {
                         return null
                     }
